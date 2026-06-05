@@ -91,15 +91,15 @@ class WP_Country_Blocker_Pro {
     
     private function country_map() {
         return [
-             'FRANCE' => 'FR',
-             'SINGAPOUR' => 'SG',
-             'SINGAPORE' => 'SG',
-             'CHINE' => 'CN',
-             'CHINA' => 'CN',
-             'RUSSIE' => 'RU',
-             'RUSSIA' => 'RU',
+             'FRANCE'        => 'FR',
+             'SINGAPOUR'     => 'SG',
+             'SINGAPORE'     => 'SG',
+             'CHINE'         => 'CN',
+             'CHINA'         => 'CN',
+             'RUSSIE'        => 'RU',
+             'RUSSIA'        => 'RU',
              'CORÉE DU NORD' => 'KP',
-             'NORTH KOREA' => 'KP',
+             'NORTH KOREA'   => 'KP',
         ];
     }
     
@@ -114,7 +114,7 @@ class WP_Country_Blocker_Pro {
         if ($this->is_login_page()) return;
         
         $country = $this->get_country();
-        $ip = $this->get_ip();
+        $ip      = $this->get_ip();
         
         if ($country && in_array($country, $this->blocked_countries(), true)) {
             
@@ -135,7 +135,7 @@ class WP_Country_Blocker_Pro {
         if ($this->allow_logged_in() && is_user_logged_in()) return $result;
         
         $country = $this->get_country();
-        $ip = $this->get_ip();
+        $ip      = $this->get_ip();
         
         if ($country && in_array($country, $this->blocked_countries(), true)) {
             
@@ -156,7 +156,7 @@ class WP_Country_Blocker_Pro {
         
         // Cloudflare fast path
         if (!empty($_SERVER['HTTP_CF_IPCOUNTRY'])) {
-            return $_SERVER['HTTP_CF_IPCOUNTRY'];
+            return strtoupper(sanitize_text_field($_SERVER['HTTP_CF_IPCOUNTRY']));
         }
         
         $ip = $this->get_ip();
@@ -188,7 +188,7 @@ class WP_Country_Blocker_Pro {
              'HTTP_CF_CONNECTING_IP',
              'HTTP_X_FORWARDED_FOR',
              'HTTP_X_REAL_IP',
-             'REMOTE_ADDR'
+             'REMOTE_ADDR',
         ];
         
         foreach ($keys as $k) {
@@ -208,12 +208,16 @@ class WP_Country_Blocker_Pro {
         
         if (!$ip) return;
         
-        file_put_contents($this->log_file,
-             sprintf("IP=%s COUNTRY=%s URI=%s TIME=%s\n",
-                  date('Y-m-d H:i:s'),
+        // FIX: argument order was wrong in the original — sprintf placeholders
+        // are %s for IP, COUNTRY, URI, TIME (not TIME first as the original had).
+        file_put_contents(
+             $this->log_file,
+             sprintf(
+                  "IP=%s COUNTRY=%s URI=%s TIME=%s\n",
                   $ip,
                   $country,
-                  $_SERVER['REQUEST_URI'] ?? ''
+                  $_SERVER['REQUEST_URI'] ?? '',
+                  date('Y-m-d H:i:s')
              ),
              FILE_APPEND
         );
@@ -268,7 +272,7 @@ class WP_Country_Blocker_Pro {
                                    style="width:350px"
                                    placeholder="Singapour, France, CN">
                             
-                            <p>Auto converted to ISO (FR, SG, CN)</p>
+                            <p class="description">Auto converted to ISO (FR, SG, CN)</p>
                         </td>
                     </tr>
                     
