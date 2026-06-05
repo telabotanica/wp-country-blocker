@@ -1,8 +1,11 @@
 <?php
 /**
- * Plugin Name: WP Country Blocker Pro
+ * Plugin Name: WP Country Blocker
  * Description: Block countries with ISO auto conversion + Fail2Ban + Cloudflare support
- * Version: 3.0
+ * Version: 1.0
+ * Author: Tela Botanica
+ * Author URI: https://www.tela-botanica.org
+ * Author Email: accueil@tela-botanica.org
  */
 
 if (!defined('ABSPATH')) exit;
