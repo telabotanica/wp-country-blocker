@@ -217,7 +217,7 @@ class WP_Country_Blocker_Pro {
                   $ip,
                   $country,
                   $_SERVER['REQUEST_URI'] ?? '',
-                  date('Y-m-d H:i:s')
+                  wp_date('Y-m-d H:i:s')
              ),
              FILE_APPEND
         );
