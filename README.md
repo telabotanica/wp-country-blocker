@@ -11,24 +11,26 @@ nano /etc/fail2ban/filter.d/wp-country.conf
 
 ```bash
 [Definition]
-failregex = \[.*\] BLOCKED IP=<HOST> COUNTRY=.* URI=.*
+failregex = IP=<HOST> COUNTRY=[A-Z]{2} URI=.*
 ignoreregex =
 ```
 
 ### 2. Jail
 
 ```bash
-nano /etc/fail2ban/jail.local
+nano /etc/fail2ban/jail.d/country.conf
 ```
 
 ```bash
 [wp-country]
 enabled = true
 filter = wp-country
-logpath = /wp-content/uploads/wpff-blocked-ips.log
+logpath = /{ABSOLUTE-PATH}/wp-content/uploads/wpff-blocked-ips.log
 maxretry = 1
 bantime = 86400
 findtime = 600
+
+action = iptables[name=wp-country, port=http, protocol=tcp]
 ```
 
 ### 3. Restart Fail2Ban
