@@ -209,7 +209,7 @@ class WP_Country_Blocker_Pro {
         if (!$ip) return;
         
         file_put_contents($this->log_file,
-             sprintf("IP=%s COUNTRY=%s URI=%s TIME=%s\n",,
+             sprintf("IP=%s COUNTRY=%s URI=%s TIME=%s\n",
                   date('Y-m-d H:i:s'),
                   $ip,
                   $country,
