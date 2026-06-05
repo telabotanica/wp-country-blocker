@@ -49,7 +49,7 @@ class WP_Country_Blocker_Pro {
     }
     
     private function blocked_countries() {
-        return (array) get_option('wpff_blocked_countries', ['SG', 'CN', 'RU', 'KP']);
+        return (array) get_option('wpff_blocked_countries', ['SG', 'CN', 'RU', 'KP', 'CA']);
     }
     
     /* =========================
