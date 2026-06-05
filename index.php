@@ -49,7 +49,7 @@ class WP_Country_Blocker_Pro {
     }
     
     private function blocked_countries() {
-        return (array) get_option('wpff_blocked_countries', ['SG', 'CN', 'RU', 'KP', 'CA']);
+        return (array) get_option('wpff_blocked_countries', ['SG', 'CN', 'RU', 'KP']);
     }
     
     /* =========================
@@ -90,17 +90,11 @@ class WP_Country_Blocker_Pro {
     }
     
     private function country_map() {
-        return [
-             'FRANCE'        => 'FR',
-             'SINGAPOUR'     => 'SG',
-             'SINGAPORE'     => 'SG',
-             'CHINE'         => 'CN',
-             'CHINA'         => 'CN',
-             'RUSSIE'        => 'RU',
-             'RUSSIA'        => 'RU',
-             'CORÉE DU NORD' => 'KP',
-             'NORTH KOREA'   => 'KP',
-        ];
+        $file = plugin_dir_path(__FILE__) . 'assets/Countries.php';
+        if (!file_exists($file)) {
+            return [];
+        }
+        return (array) require $file;
     }
     
     /* =========================
