@@ -165,7 +165,7 @@ class WP_Country_Blocker_Pro {
         $cache = get_transient('wpff_' . md5($ip));
         if ($cache) return $cache;
         
-        $res = wp_remote_get("https://ip-api.com/json/{$ip}?fields=countryCode", [
+        $res = wp_remote_get("http://ip-api.com/json/{$ip}?fields=countryCode", [
              'timeout' => 2
         ]);
         
